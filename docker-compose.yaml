@@ -1,0 +1,40 @@
+# docker compose version
+version: "3.8"
+# the projects that we want the images and containers for
+services:
+  # not necessary to be same as folder - did it just for clarity
+  # indent is necessary for nestings
+  api:
+    # how we build the image - should be relative path to the folder that the Dockerfile for that project is
+    build: ./api
+    # what to call the container like --name
+    container_name: api_c
+    # port mapping like how we did it with -p
+    ports:
+      - "4000:4000"
+      # volume like how we did before - we use relative to docker compose file
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+  myblog:
+    build: ./myblog
+    container_name: myblog_c
+    ports:
+      - "3000:3000"
+      # won't work on windows
+    volumes:
+      - ./myblog:/app
+      - /app/node_modules
+      # these 2 lines will start the container in interactive moded
+    stdin_open: true
+    tty: true
+
+# ----- docker commands -----
+
+# builds the image creates a container for it with given name and applies the given options
+# docker-compose up
+
+# stop the container and delete the container but the image and volume still remain
+# --rmi all removes all of the images as well
+# -v removes the volumes too
+# docker-compose down --rmi all -v
