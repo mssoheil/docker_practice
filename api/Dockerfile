@@ -55,3 +55,5 @@ CMD ["npm", "run", "dev"]
 # delete every image and container and volumes to be able to work from the scratch
 # docker system prune -a
 
+# run shell so for e.g. we can run ls
+# docker exec -it [containerId or containerName] sh
